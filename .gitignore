@@ -1,0 +1,8 @@
+.vscode
+
+*.o
+*.d
+
+obj
+
+philo
