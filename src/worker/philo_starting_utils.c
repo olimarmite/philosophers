@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   philo_starting_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 13:23:53 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 02:57:37 by olimarti         ###   ########.fr       */
+/*   Created: 2023/08/28 03:55:26 by olimarti          #+#    #+#             */
+/*   Updated: 2023/08/28 03:55:41 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosopher.h"
-#include <stdatomic.h>
-#include "logs.h"
+#include "worker.h"
 #include "utils.h"
-#include "settings.h"
-#include "manager.h"
+#include "logs.h"
 
-int	main(void)
+void	philo_wait_starting(t_worker_state *worker_state)
 {
-	t_manager	manager;
-	t_settings	settings;
+	pthread_mutex_lock(&worker_state->shared_ressource->start_lock);
+	pthread_mutex_unlock(&worker_state->shared_ressource->start_lock);
+}
 
-	settings_init(&settings);
-	if (manager_init(&manager, &settings))
-		return (1);
-	manager_start(&manager, &settings);
-	manager_destroy(&manager, &settings);
+void	philo_set_ready(t_worker_state *worker_state)
+{
+	increment_mutex_int(
+		&worker_state->shared_ressource->worker_ready_count,
+		&worker_state->shared_ressource->worker_ready_count_lock
+		);
 }

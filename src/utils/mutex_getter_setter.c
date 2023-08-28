@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time_utils.c                                       :+:      :+:    :+:   */
+/*   mutex_getter_setter.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 15:37:07 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/12 15:53:15 by olimarti         ###   ########.fr       */
+/*   Created: 2023/08/27 20:06:32 by olimarti          #+#    #+#             */
+/*   Updated: 2023/08/28 03:31:05 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <sys/time.h>
+#include "utils.h"
 
-int	get_time_ms(long *const time)
+int	read_mutex_int(int *variable, pthread_mutex_t *mutex)
 {
-	struct timeval	now;
+	int	value;
 
-	if (gettimeofday(&now, 0) == 0)
-	{
-		*time = now.tv_sec * 1000 + now.tv_usec / 1000;
-		return (0);
-	}
-	return (1);
+	pthread_mutex_lock(mutex);
+	value = *variable;
+	pthread_mutex_unlock(mutex);
+	return (value);
 }
 
+void	increment_mutex_int(int *variable, pthread_mutex_t *mutex)
+{
+	pthread_mutex_lock(mutex);
+	*variable += 1;
+	pthread_mutex_unlock(mutex);
+}

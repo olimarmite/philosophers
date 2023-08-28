@@ -6,7 +6,7 @@
 #    By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 09:39:09 by alde-fre          #+#    #+#              #
-#    Updated: 2023/08/23 12:29:43 by olimarti         ###   ########.fr        #
+#    Updated: 2023/08/28 01:59:17 by olimarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,10 +21,18 @@ OBJDIR	=	./obj
 SRC		=	logs.c \
 			main.c \
 			settings.c \
-			time_utils.c \
 			manager/heartbeats.c \
 			manager/manager.c \
+			manager/manager_init.c \
+			manager/manager_destroy.c \
 			worker/worker.c \
+			worker/shared_ressources.c \
+			utils/time_utils.c \
+			utils/mutex_getter_setter.c \
+			worker/philo_logic.c \
+			worker/philo_forks_utils.c \
+			worker/philo_state_utils.c \
+			worker/philo_starting_utils.c \
 
 OBJ		= 	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

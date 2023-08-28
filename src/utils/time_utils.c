@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   logs.c                                             :+:      :+:    :+:   */
+/*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 15:07:16 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 00:11:30 by olimarti         ###   ########.fr       */
+/*   Created: 2023/08/12 15:37:07 by olimarti          #+#    #+#             */
+/*   Updated: 2023/08/28 03:55:19 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include <sys/time.h>
 
-void	log_err(char *name, char *err)
+int	get_time_ms(long *const time)
 {
-	printf("ERROR: %s: %s\n", name, err);
+	struct timeval	now;
+
+	if (gettimeofday(&now, 0) == 0)
+	{
+		*time = now.tv_sec * 1000 + now.tv_usec / 1000;
+		return (0);
+	}
+	return (1);
 }
 
-void	log_warn(char *name, char *err)
+int	get_time_from_start_ms(long *const time)
 {
-	printf("WARN: %s: %s\n", name, err);
-}
+	static long	start_time = -1;
+	long		now;
 
-void	log_info(char *name, char *err)
-{
-	printf("INFO: %s: %s\n", name, err);
+	if (get_time_ms(&now))
+		return (1);
+	if (start_time == -1)
+	{
+		start_time = now;
+	}
+	*time = now - start_time;
+	return (0);
 }

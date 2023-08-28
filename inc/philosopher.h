@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 19:01:16 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/12 16:53:27 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/27 23:14:39 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,12 @@ typedef enum e_philo_state
 	EATING,
 	SLEEPING,
 	THINKING,
-	DEAD,
 }	t_philo_state;
 
 static char *const	g_philo_state_name[] = {
 [EATING] = "EATING",
 [SLEEPING] = "SLEEPING",
 [THINKING] = "THINKING",
-[DEAD] = "DEAD",
 };
-
 
 #endif
