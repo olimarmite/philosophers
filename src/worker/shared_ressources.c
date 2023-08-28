@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 22:34:02 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 03:30:45 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/28 13:43:20 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_shared_ressource	*init_shared_ressources(void)
 		pthread_mutex_destroy(&shared_ressource->start_lock);
 	if (initialized_flag & 0b000000100)
 		pthread_mutex_destroy(&shared_ressource->worker_ready_count_lock);
-	free(shared_ressource);
 	return (shared_ressource);
 }
 
