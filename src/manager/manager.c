@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:28:04 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 03:49:05 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/28 20:10:32 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static void	manager_join_threads(t_manager *manager, const t_settings *settings)
 {
 	int	i;
 
+	log_info("Manager", "wait all threads",
+		&manager->shared_ressource->display_lock);
 	i = settings->worker_count;
 	while (i > 0)
 	{
@@ -71,6 +73,8 @@ static void	manager_join_threads(t_manager *manager, const t_settings *settings)
 		if (manager->threads[i])
 			pthread_join(manager->threads[i], NULL);
 	}
+	log_info("Manager", "all threads terminated",
+		&manager->shared_ressource->display_lock);
 }
 
 static void	init_start_time(void)
@@ -93,7 +97,6 @@ int	manager_start(t_manager *manager, const t_settings *settings)
 		monitor_heatbeats(manager->heartbeats_array, settings,
 			&manager->shared_ressource->display_lock);
 		manager->shared_ressource->is_terminated = 1;
-		log_info("Manager", "Terminated");
 	}
 	else
 	{

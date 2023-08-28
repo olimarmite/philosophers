@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 23:53:48 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 03:54:54 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:13:18 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ static void	display_state(t_worker_state *worker_state)
 
 	if (get_time_from_start_ms(&now))
 	{
-		log_err("philo_core", "Cannot get time");
+		log_err("display_state", "Cannot get time",
+			&worker_state->shared_ressource->display_lock);
 	}
 	pthread_mutex_lock(&worker_state->shared_ressource->display_lock);
 	if (worker_state->shared_ressource->is_terminated == 0)
-		printf("[%ld] [%i] is %s\n",
+		printf("%ld %i is %s\n",
 			now,
 			worker_state->id,
 			g_philo_state_name[worker_state->phi_state]);
@@ -48,7 +49,8 @@ void	philo_eat(t_worker_state *worker_state)
 
 	if (get_time_from_start_ms(&now))
 	{
-		log_err("philo_core", "Cannot get time");
+		log_err("philo_eat", "Cannot get time",
+			&worker_state->shared_ressource->display_lock);
 	}
 	*worker_state->heartbeats_ptr = now;
 	philo_change_state(EATING,

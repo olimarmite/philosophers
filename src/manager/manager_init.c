@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 01:57:17 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 03:11:32 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:32:46 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 int	manager_init(t_manager *manager, const t_settings *settings)
 {
+	log_info("manager", "init manager", NULL);
 	if (heartbeats_init(&manager->heartbeats_array, settings))
 		return (1);
 	if (manager_allocate_workers(manager, settings))
@@ -54,6 +55,7 @@ pthread_mutex_t	*create_forks(const t_settings *settings)
 
 int	manager_allocate_workers(t_manager *manager, const t_settings *settings)
 {
+	log_info("manager", "allocate workers", NULL);
 	manager->states = calloc(settings->worker_count, sizeof(t_worker_state));
 	if (manager->states == NULL)
 		return (1);

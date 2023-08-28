@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:27:47 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 03:52:53 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/28 19:28:08 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int	heartbeats_init(atomic_long	**heartbeats_array, const t_settings *settings)
 {
 	_Static_assert(ATOMIC_INT_LOCK_FREE == 2,
 		"ATOMIC_INT_LOCK_FREE not supported");
-	log_info("heartbeats_init", "Init heartbeats array");
+	log_info("heartbeats_init", "init heartbeats array", NULL);
 	*heartbeats_array = calloc(settings->worker_count, sizeof(atomic_long));
 	if (*heartbeats_array == NULL)
 	{
-		log_err("heartbeats_init", "Failed to init heartbeats array");
+		log_err("heartbeats_init", "Failed to init heartbeats array", NULL);
 		return (1);
 	}
 	return (0);
@@ -58,7 +58,7 @@ int	check_hearbeats(
 		if (tmp_time + LIFE_MAX_DURATION < now && tmp_time > 0)
 		{
 			pthread_mutex_lock(display_lock);
-			printf("----  check_hearbeats: Philo %i missed an heartbeat by %ld ms\n", i, now - (tmp_time + LIFE_MAX_DURATION));
+			printf("%ld %i died\n", now, i);
 			pthread_mutex_unlock(display_lock);
 			missed_hb = 1;
 		}
