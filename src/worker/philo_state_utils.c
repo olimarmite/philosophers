@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 23:53:48 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/29 17:33:06 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:29:17 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	display_state(t_worker_state *worker_state)
 		pthread_mutex_lock(&worker_state->shared_ressource->display_lock);
 		printf("%ld %i is %s\n",
 			now,
-			worker_state->id + 0,
+			worker_state->id + 1,
 			g_philo_state_name[worker_state->phi_state]);
 		pthread_mutex_unlock(&worker_state->shared_ressource->display_lock);
 	}

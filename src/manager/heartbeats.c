@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:27:47 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/29 14:56:28 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:54:03 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	check_hearbeats(
 	int				i;
 	long			tmp_time;
 	long			now;
-	int				missed_hb;
+	// int				missed_hb;
 	int				end;
 
-	missed_hb = 0;
+	// missed_hb = 0;
 	end = 1;
 	if (get_time_from_start_ms(&now, 0))
 		return (1);
@@ -61,11 +61,11 @@ int	check_hearbeats(
 			pthread_mutex_lock(display_lock);
 			printf("%ld %i died\n", now, i);
 			pthread_mutex_unlock(display_lock);
-			return (1);
+			return (2);
 		}
 		++i;
 	}
-	return (missed_hb | end);
+	return (end);
 }
 
 int	monitor_heatbeats(
@@ -74,11 +74,14 @@ int	monitor_heatbeats(
 	pthread_mutex_t *display_lock
 	)
 {
+	int	status;
+
 	while (1)
 	{
-		if (check_hearbeats(heartbeats_array, settings, display_lock))
+		status = check_hearbeats(heartbeats_array, settings, display_lock);
+		if (status)
 		{
-			return (1);
+			return (status);
 		}
 		usleep(MONITORING_LOOP_INTERVAL);
 	}

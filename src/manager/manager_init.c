@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 01:57:17 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/29 17:38:12 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:24:15 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,21 +86,21 @@ void	manager_init_workers_states(
 	const t_settings *settings)
 {
 	int	i;
-	// int	worker_count_pair;
+	int	worker_count_pair;
 
 	i = 0;
-	// worker_count_pair = (settings->worker_count % 2) == 0;
+	worker_count_pair = (settings->worker_count % 2) == 0;
 	while (i < settings->worker_count)
 	{
 		manager->states[i].id = i;
 		manager->states[i].settings = settings;
 		manager->states[i].heartbeats_ptr = &manager->heartbeats_array[i];
-		manager->states[i].fork_order = !(i % 2);// && (i != 0 || worker_count_pair);
+		manager->states[i].fork_order = !(i % 2) && (i != 0 || worker_count_pair);
 		manager->states[i].left_fork = &manager->fork_list[i % settings->worker_count];
 		manager->states[i].right_fork = &manager->fork_list[(i + 1) % settings->worker_count];
 		manager->states[i].phi_state = THINKING;
 		manager->states[i].shared_ressource = manager->shared_ressource;
-		manager->states[i].should_lock_on_init = !(i % 2);// && (i != 0 || worker_count_pair);
+		manager->states[i].should_lock_on_init = !(i % 2) && (i != 0 || worker_count_pair);
 		++i;
 	}
 }
