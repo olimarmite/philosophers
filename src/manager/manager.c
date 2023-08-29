@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:28:04 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 20:10:32 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:38:42 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,52 @@
 #include "utils.h"
 #include <stdlib.h>
 
+// static int	manager_start_half_workers(
+// 	int start, t_manager *manager,
+// 	const t_settings *settings)
+// {
+// 	int	spawned;
+
+// 	spawned = 0;
+// 	while (start < settings->worker_count)
+// 	{
+// 		if (pthread_create(&manager->threads[start],
+// 				NULL,
+// 				&worker_start,
+// 				(void *)&manager->states[start]))
+// 		{
+// 			return (spawned);
+// 		}
+// 		start += 2;
+// 		++spawned;
+// 	}
+// 	return (spawned);
+// }
+
 static int	manager_start_half_workers(
-	int start, t_manager *manager,
+	int first_wave,
+	t_manager *manager,
 	const t_settings *settings)
 {
 	int	spawned;
+	int	i;
 
 	spawned = 0;
-	while (start < settings->worker_count)
+	i = 0;
+	while (i < settings->worker_count)
 	{
-		if (pthread_create(&manager->threads[start],
-				NULL,
-				&worker_start,
-				(void *)&manager->states[start]))
+		if ((manager->states[i].should_lock_on_init != 0) == (first_wave == 0))
 		{
-			return (spawned);
+			if (pthread_create(&manager->threads[i],
+					NULL,
+					&worker_start,
+					(void *)&manager->states[i]))
+			{
+				return (spawned);
+			}
+			++spawned;
 		}
-		start += 2;
-		++spawned;
+		++i;
 	}
 	return (spawned);
 }
@@ -45,13 +73,13 @@ static int	manager_start_threads(
 {
 	int	spawned;
 
-	spawned = manager_start_half_workers(0, manager, settings);
+	spawned = manager_start_half_workers(1, manager, settings);
 	while (read_mutex_int(&manager->shared_ressource->worker_ready_count,
 			&manager->shared_ressource->worker_ready_count_lock) < spawned)
 	{
 		usleep(100000);
 	}
-	spawned += manager_start_half_workers(1, manager, settings);
+	spawned += manager_start_half_workers(0, manager, settings);
 	while (read_mutex_int(&manager->shared_ressource->worker_ready_count,
 			&manager->shared_ressource->worker_ready_count_lock) < spawned)
 	{
@@ -81,7 +109,7 @@ static void	init_start_time(void)
 {
 	long	time;
 
-	get_time_from_start_ms(&time);
+	get_time_from_start_ms(&time, 1);
 }
 
 int	manager_start(t_manager *manager, const t_settings *settings)

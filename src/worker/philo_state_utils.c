@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 23:53:48 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 19:13:18 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/29 17:33:06 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,20 @@ static void	display_state(t_worker_state *worker_state)
 {
 	long			now;
 
-	if (get_time_from_start_ms(&now))
+	if (get_time_from_start_ms(&now, 0))
 	{
 		log_err("display_state", "Cannot get time",
 			&worker_state->shared_ressource->display_lock);
 	}
-	pthread_mutex_lock(&worker_state->shared_ressource->display_lock);
 	if (worker_state->shared_ressource->is_terminated == 0)
+	{
+		pthread_mutex_lock(&worker_state->shared_ressource->display_lock);
 		printf("%ld %i is %s\n",
 			now,
-			worker_state->id,
+			worker_state->id + 0,
 			g_philo_state_name[worker_state->phi_state]);
-	pthread_mutex_unlock(&worker_state->shared_ressource->display_lock);
+		pthread_mutex_unlock(&worker_state->shared_ressource->display_lock);
+	}
 }
 
 static inline int	philo_change_state(
@@ -47,7 +49,7 @@ void	philo_eat(t_worker_state *worker_state)
 {
 	long			now;
 
-	if (get_time_from_start_ms(&now))
+	if (get_time_from_start_ms(&now, 0))
 	{
 		log_err("philo_eat", "Cannot get time",
 			&worker_state->shared_ressource->display_lock);

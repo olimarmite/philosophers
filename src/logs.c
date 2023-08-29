@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:07:16 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 19:09:39 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/29 15:37:55 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	log_warn(char *name, char *err, pthread_mutex_t *lock)
 
 void	log_info(char *name, char *err, pthread_mutex_t *lock)
 {
+	return ;
 	if (lock == NULL)
 	{
 		printf("INFO: %s: %s\n", name, err);
