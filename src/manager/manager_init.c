@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 01:57:17 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/31 22:47:35 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/01 00:32:57 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ pthread_mutex_t	*create_forks(const t_settings *settings)
 	pthread_mutex_t	*fork_list;
 
 	fork_list = malloc(settings->worker_count * sizeof(pthread_mutex_t));
+	if (!fork_list)
+		return (0);
 	i = 0;
 	while (i < settings->worker_count)
 	{
@@ -57,10 +59,10 @@ pthread_mutex_t	*create_forks(const t_settings *settings)
 int	manager_allocate_workers(t_manager *manager, const t_settings *settings)
 {
 	log_info("manager", "allocate workers", NULL);
-	manager->states = calloc(settings->worker_count, sizeof(t_worker_state));
+	manager->states = ft_calloc(settings->worker_count, sizeof(t_worker_state));
 	if (manager->states == NULL)
 		return (1);
-	manager->threads = calloc(settings->worker_count, sizeof(pthread_t));
+	manager->threads = ft_calloc(settings->worker_count, sizeof(pthread_t));
 	if (manager->threads == NULL)
 		return (free(manager->states), 1);
 	manager->fork_list = create_forks(settings);

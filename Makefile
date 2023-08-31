@@ -6,7 +6,7 @@
 #    By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 09:39:09 by alde-fre          #+#    #+#              #
-#    Updated: 2023/08/30 18:58:58 by olimarti         ###   ########.fr        #
+#    Updated: 2023/09/01 00:10:53 by olimarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,11 +29,13 @@ SRC		=	logs.c \
 			worker/shared_ressources.c \
 			utils/time_utils.c \
 			utils/ft_atoi.c \
+			utils/ft_calloc.c \
 			utils/mutex_getter_setter.c \
 			worker/philo_logic.c \
 			worker/philo_forks_utils.c \
 			worker/philo_state_utils.c \
 			worker/philo_starting_utils.c \
+			worker/philo_heartbeat.c \
 
 OBJ		= 	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 23:53:48 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/31 22:41:35 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/01 00:08:33 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	philo_eat(t_worker_state *worker_state)
 		log_err("philo_eat", "Cannot get time",
 			&worker_state->shared_ressource->display_lock);
 	}
-	*worker_state->heartbeats_ptr = now;
+	set_philo_heartbeat(worker_state->heartbeats_ptr, now);
 	philo_change_state(EATING,
 		worker_state->settings->eat_duration, worker_state);
 }
