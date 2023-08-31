@@ -6,12 +6,25 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:48:22 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/31 22:37:33 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/31 23:18:22 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "settings.h"
 #include "utils.h"
+
+static int	is_settings_valid(t_settings *settings)
+{
+	int	is_valid;
+
+	is_valid = 1;
+	is_valid &= (settings->life_max_time >= 0);
+	is_valid &= (settings->max_eat_count >= -1);
+	is_valid &= (settings->eat_duration >= 0);
+	is_valid &= (settings->sleep_duration >= 0);
+	is_valid &= (settings->worker_count > 0);
+	return (is_valid);
+}
 
 int	settings_init_parse(t_settings *settings, int argc, char **argv)
 {
@@ -38,5 +51,5 @@ int	settings_init_parse(t_settings *settings, int argc, char **argv)
 			- settings->sleep_duration;
 	if (settings->think_duration < 0)
 		settings->think_duration = 0;
-	return (error);
+	return (error | !is_settings_valid(settings));
 }
