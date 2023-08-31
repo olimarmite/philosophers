@@ -6,13 +6,12 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 02:55:39 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 20:54:45 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/31 22:48:00 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 #include <limits.h>
-
 
 static inline int	ft_isdigit(int c)
 {

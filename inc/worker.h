@@ -54,6 +54,11 @@ void				take_forks(
 void				release_forks(t_fork_order order,
 						t_worker_state *worker_state);
 
+void				take_single_fork(
+						pthread_mutex_t *fork,
+						t_worker_state *worker_state);
+void				release_single_fork(pthread_mutex_t *fork);
+
 void				philo_set_ready(t_worker_state *worker_state);
 void				philo_wait_starting(t_worker_state *worker_state);
 

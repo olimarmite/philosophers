@@ -6,14 +6,13 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:37:07 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/29 03:05:02 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/31 22:47:53 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/time.h>
 #include <stdatomic.h>
 #include <stdio.h>
-
 
 int	get_time_ms(long *const time)
 {

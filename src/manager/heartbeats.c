@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:27:47 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/29 19:54:03 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/08/31 22:41:19 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,8 @@ int	check_hearbeats(
 	int				i;
 	long			tmp_time;
 	long			now;
-	// int				missed_hb;
 	int				end;
 
-	// missed_hb = 0;
 	end = 1;
 	if (get_time_from_start_ms(&now, 0))
 		return (1);
