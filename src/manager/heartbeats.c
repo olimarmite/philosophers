@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:27:47 by olimarti          #+#    #+#             */
-/*   Updated: 2023/09/01 00:30:38 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/01 19:12:55 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	check_hearbeats(
 		if (tmp_time + settings->life_max_time < now && tmp_time >= 0)
 		{
 			pthread_mutex_lock(display_lock);
-			printf("%ld %i died\n", now, i);
+			printf("%ld %i died\n", now, i + 1);
 			pthread_mutex_unlock(display_lock);
 			return (2);
 		}
