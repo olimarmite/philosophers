@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:30:24 by olimarti          #+#    #+#             */
-/*   Updated: 2023/09/01 00:31:28 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/03 00:12:48 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,6 @@ void	heartbeats_destroy(
 			t_heartbeat_entry	*heartbeats_array,
 			const t_settings *settings);
 
-int		check_hearbeats(
-			t_heartbeat_entry *heartbeats_array,
-			const t_settings *settings,
-			pthread_mutex_t *display_lock);
-
 int		manager_allocate_workers(
 			t_manager *manager,
 			const t_settings *settings
@@ -67,7 +62,7 @@ int		destroy_forks(pthread_mutex_t *fork_list,
 int		monitor_heatbeats(
 			t_heartbeat_entry *heartbeats_array,
 			const t_settings *settings,
-			pthread_mutex_t *display_lock
+			t_shared_ressource *shared_ressource
 			);
 
 #endif

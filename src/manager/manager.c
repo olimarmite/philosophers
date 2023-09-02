@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:28:04 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/31 22:42:31 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/03 00:17:30 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	manager_start(t_manager *manager, const t_settings *settings)
 	{
 		pthread_mutex_unlock(&manager->shared_ressource->start_lock);
 		if (monitor_heatbeats(manager->heartbeats_array, settings,
-				&manager->shared_ressource->display_lock) == 2)
+				manager->shared_ressource) == 2)
 			manager->shared_ressource->is_terminated = 1;
 	}
 	else
