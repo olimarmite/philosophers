@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:28:04 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 02:07:17 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/01 00:14:45 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	manager_destroy_workers(t_manager *manager, const t_settings *settings)
 
 void	manager_destroy(t_manager *manager, const t_settings *settings)
 {
-	heartbeats_destroy(manager->heartbeats_array);
+	heartbeats_destroy(manager->heartbeats_array, settings);
 	manager_destroy_workers(manager, settings);
 }

@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:30:24 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 03:54:22 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/03 00:12:48 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 typedef struct s_manager
 {
-	atomic_long			*heartbeats_array;
+	t_heartbeat_entry	*heartbeats_array;
 	t_worker_state		*states;
 	pthread_mutex_t		*fork_list;
 	pthread_t			*threads;
@@ -32,17 +32,13 @@ int		manager_start(t_manager *manager, const t_settings *settings);
 void	manager_destroy(t_manager *manager, const t_settings *settings);
 
 int		heartbeats_init(
-			atomic_long	**heartbeats_array,
+			t_heartbeat_entry	**heartbeats_array,
 			const t_settings *settings
 			);
 
-void	heartbeats_destroy(atomic_long	*heartbeats_array);
-
-int		check_hearbeats(
-			const atomic_long *heartbeats_array,
-			const t_settings *settings,
-			pthread_mutex_t *display_lock
-			);
+void	heartbeats_destroy(
+			t_heartbeat_entry	*heartbeats_array,
+			const t_settings *settings);
 
 int		manager_allocate_workers(
 			t_manager *manager,
@@ -64,9 +60,9 @@ int		destroy_forks(pthread_mutex_t *fork_list,
 			);
 
 int		monitor_heatbeats(
-			const atomic_long *heartbeats_array,
+			t_heartbeat_entry *heartbeats_array,
 			const t_settings *settings,
-			pthread_mutex_t *display_lock
+			t_shared_ressource *shared_ressource
 			);
 
 #endif

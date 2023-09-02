@@ -26,11 +26,17 @@ typedef struct s_shared_ressource
 	atomic_bool			is_terminated;
 }	t_shared_ressource;
 
+typedef struct s_heartbeat_entry
+{
+	long			time;
+	pthread_mutex_t	lock;
+}	t_heartbeat_entry;
+
 typedef struct s_worker_state
 {
 	int					id;
 	const t_settings	*settings;
-	atomic_long			*heartbeats_ptr;
+	t_heartbeat_entry	*heartbeats_ptr;
 	t_fork_order		fork_order;
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
@@ -54,9 +60,22 @@ void				take_forks(
 void				release_forks(t_fork_order order,
 						t_worker_state *worker_state);
 
+void				take_single_fork(
+						pthread_mutex_t *fork,
+						t_worker_state *worker_state);
+void				release_single_fork(pthread_mutex_t *fork);
+
 void				philo_set_ready(t_worker_state *worker_state);
 void				philo_wait_starting(t_worker_state *worker_state);
 
 void				philo_core(t_worker_state *worker_state);
+
+void				set_philo_heartbeat(
+						t_heartbeat_entry *heartbeats_ptr,
+						long value);
+
+void				stopable_sleep(
+						__useconds_t time,
+						t_shared_ressource *shared_ressource);
 
 #endif

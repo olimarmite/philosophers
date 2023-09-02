@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 16:28:04 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 20:10:32 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/03 00:19:08 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,26 @@
 #include "utils.h"
 #include <stdlib.h>
 
-static int	manager_start_half_workers(
-	int start, t_manager *manager,
+static int	manager_start_all_workers(
+	t_manager *manager,
 	const t_settings *settings)
 {
-	int	spawned;
+	int	i;
 
-	spawned = 0;
-	while (start < settings->worker_count)
+	i = 0;
+	while (i < settings->worker_count)
 	{
-		if (pthread_create(&manager->threads[start],
+		if (pthread_create(&manager->threads[i],
 				NULL,
 				&worker_start,
-				(void *)&manager->states[start]))
+				(void *)&manager->states[i]))
 		{
-			return (spawned);
+			manager->threads[i] = 0;
+			return (i);
 		}
-		start += 2;
-		++spawned;
+		++i;
 	}
-	return (spawned);
+	return (i);
 }
 
 static int	manager_start_threads(
@@ -45,13 +45,7 @@ static int	manager_start_threads(
 {
 	int	spawned;
 
-	spawned = manager_start_half_workers(0, manager, settings);
-	while (read_mutex_int(&manager->shared_ressource->worker_ready_count,
-			&manager->shared_ressource->worker_ready_count_lock) < spawned)
-	{
-		usleep(100000);
-	}
-	spawned += manager_start_half_workers(1, manager, settings);
+	spawned = manager_start_all_workers(manager, settings);
 	while (read_mutex_int(&manager->shared_ressource->worker_ready_count,
 			&manager->shared_ressource->worker_ready_count_lock) < spawned)
 	{
@@ -81,7 +75,7 @@ static void	init_start_time(void)
 {
 	long	time;
 
-	get_time_from_start_ms(&time);
+	get_time_from_start_ms(&time, 1);
 }
 
 int	manager_start(t_manager *manager, const t_settings *settings)
@@ -95,8 +89,7 @@ int	manager_start(t_manager *manager, const t_settings *settings)
 	{
 		pthread_mutex_unlock(&manager->shared_ressource->start_lock);
 		monitor_heatbeats(manager->heartbeats_array, settings,
-			&manager->shared_ressource->display_lock);
-		manager->shared_ressource->is_terminated = 1;
+			manager->shared_ressource);
 	}
 	else
 	{

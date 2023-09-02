@@ -6,21 +6,18 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:37:52 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/28 19:25:26 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/03 00:45:59 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
-# define NB_PHILO					101
-# define EAT_DURATION				1000
-# define SLEEP_DURATION				000
-# define LIFE_MAX_DURATION			2999
-# define MAX_EAT_COUNT				10
-# define DEFAULT_PHILO_STATE		EATING
+# define DEFAULT_PHILO_STATE			EATING
+# define MONITORING_LOOP_INTERVAL		1000
 
-# define MONITORING_LOOP_INTERVAL	1000 //us
+# define USE_STOPABLE_SLEEP				1
+# define STOPABLE_SLEEP_LOOP_INTERVAL	1000000
 
 # include "philosopher.h"
 
@@ -35,6 +32,6 @@ typedef struct s_settings
 	int				max_eat_count;
 }	t_settings;
 
-int	settings_init(t_settings *settings);
+int	settings_init_parse(t_settings *settings, int argc, char **argv);
 
 #endif

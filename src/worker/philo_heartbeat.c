@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   philo_heartbeat.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 15:37:52 by olimarti          #+#    #+#             */
-/*   Updated: 2023/09/01 00:24:06 by olimarti         ###   ########.fr       */
+/*   Created: 2023/09/01 00:09:24 by olimarti          #+#    #+#             */
+/*   Updated: 2023/09/01 00:09:36 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "worker.h"
 
-# include <pthread.h>
-
-int		get_time_ms(long *const time);
-int		get_time_from_start_ms(long *const time, int can_init);
-void	increment_mutex_int(int *variable, pthread_mutex_t *mutex);
-int		read_mutex_int(int *variable, pthread_mutex_t *mutex);
-
-int		ft_atoi(const char *nptr, int *nbr);
-void	*ft_calloc(size_t nmemb, size_t size);
-
-#endif
+void	set_philo_heartbeat(t_heartbeat_entry *heartbeats_ptr, long value)
+{
+	pthread_mutex_lock(&((*heartbeats_ptr).lock));
+	(*heartbeats_ptr).time = value;
+	pthread_mutex_unlock(&((*heartbeats_ptr).lock));
+}
