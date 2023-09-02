@@ -6,15 +6,18 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:37:52 by olimarti          #+#    #+#             */
-/*   Updated: 2023/08/31 22:42:11 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/03 00:45:59 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SETTINGS_H
 # define SETTINGS_H
 
-# define DEFAULT_PHILO_STATE		EATING
-# define MONITORING_LOOP_INTERVAL	1000
+# define DEFAULT_PHILO_STATE			EATING
+# define MONITORING_LOOP_INTERVAL		1000
+
+# define USE_STOPABLE_SLEEP				1
+# define STOPABLE_SLEEP_LOOP_INTERVAL	1000000
 
 # include "philosopher.h"
 

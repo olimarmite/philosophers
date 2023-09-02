@@ -74,4 +74,8 @@ void				set_philo_heartbeat(
 						t_heartbeat_entry *heartbeats_ptr,
 						long value);
 
+void				stopable_sleep(
+						__useconds_t time,
+						t_shared_ressource *shared_ressource);
+
 #endif

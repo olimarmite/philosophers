@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 23:53:48 by olimarti          #+#    #+#             */
-/*   Updated: 2023/09/01 00:08:33 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/03 00:34:17 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static inline int	philo_change_state(
 {
 	worker_state->phi_state = state;
 	display_state(worker_state);
-	usleep(duration);
+	stopable_sleep(duration, worker_state->shared_ressource);
 	return (0);
 }
 

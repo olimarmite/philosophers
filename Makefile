@@ -6,7 +6,7 @@
 #    By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 09:39:09 by alde-fre          #+#    #+#              #
-#    Updated: 2023/09/01 00:10:53 by olimarti         ###   ########.fr        #
+#    Updated: 2023/09/03 00:25:21 by olimarti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC		=	logs.c \
 			worker/philo_state_utils.c \
 			worker/philo_starting_utils.c \
 			worker/philo_heartbeat.c \
+			worker/philo_stopable_sleep.c \
 
 OBJ		= 	$(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
