@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/27 23:53:48 by olimarti          #+#    #+#             */
-/*   Updated: 2023/09/03 00:34:17 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/03 00:53:06 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	display_state(t_worker_state *worker_state)
 	pthread_mutex_unlock(&worker_state->shared_ressource->display_lock);
 }
 
-static inline int	philo_change_state(
+int	philo_change_state(
 		t_philo_state state,
 		int duration,
 		t_worker_state *worker_state)

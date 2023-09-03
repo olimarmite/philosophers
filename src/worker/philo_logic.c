@@ -6,7 +6,7 @@
 /*   By: olimarti <olimarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 00:00:56 by olimarti          #+#    #+#             */
-/*   Updated: 2023/09/03 00:33:59 by olimarti         ###   ########.fr       */
+/*   Updated: 2023/09/03 00:54:20 by olimarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,9 @@ static inline void	philo_post_start(
 		worker_state->phi_state = EATING;
 	else
 	{
-		worker_state->phi_state = THINKING;
-		if (worker_state->shared_ressource->is_terminated == 0)
-			stopable_sleep(worker_state->settings->eat_duration,
-				worker_state->shared_ressource);
+		philo_change_state(THINKING,
+			worker_state->settings->eat_duration,
+			worker_state);
 	}
 }
 

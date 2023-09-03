@@ -78,4 +78,9 @@ void				stopable_sleep(
 						__useconds_t time,
 						t_shared_ressource *shared_ressource);
 
+int					philo_change_state(
+						t_philo_state state,
+						int duration,
+						t_worker_state *worker_state);
+
 #endif
